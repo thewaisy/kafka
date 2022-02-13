@@ -2,8 +2,8 @@
 .DS_Store
 
 logs/
-kafka/
-example/
+/kafka/
+/example/
 
 .bash_history
 .viminfo

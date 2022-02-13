@@ -9,8 +9,6 @@ x-kafka-common:
   image: waisy/kafka:2.8.1-2.13
   networks:
       - data
-  volumes:
-    - ./kafka/config/server.properties:/kafka/config/server.properties
   depends_on:
     - zookeeper
   restart: always
@@ -29,12 +27,36 @@ services:
       - ./conf/zoo.cfg:/conf/zoo.cfg
       - ~/data/zookeeper/zk1/data:/data
 
-  kafka:
+  kafka1:
     <<: *kafka-common
-    container_name: kafka
-    hostname: kafka
+    container_name: kafka1
+    hostname: kafka1
     ports:
       - "9092:9092"
+    volumes:
+    - ./kafka/config/kafka1.properties:/kafka/config/server.properties
+    environment:
+      MODE: 'server'
+
+  kafka2:
+    <<: *kafka-common
+    container_name: kafka2
+    hostname: kafka2
+    ports:
+      - "9093:9092"
+    volumes:
+    - ./kafka/config/kafka2.properties:/kafka/config/server.properties
+    environment:
+      MODE: 'server'
+  
+  kafka3:
+    <<: *kafka-common
+    container_name: kafka3
+    hostname: kafka3
+    ports:
+      - "9094:9092"
+    volumes:
+    - ./kafka/config/kafka3.properties:/kafka/config/server.properties
     environment:
       MODE: 'server'
 
